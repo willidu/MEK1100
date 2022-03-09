@@ -139,7 +139,7 @@ The contour lines are defined when $y = \ln|x| + C$ is constant, meaning $z = \l
 See also \autoref{fig:figure_2_b_ii}  on next page.
 
 \subsection{}
-According to 4.6 in Gjevik \& Fagerland (2021), there is a scalar potential $\psi=\psi(x, y)$ if 
+According to 4.6 in Gjevik \& Fagerland (2021), there is a stream function $\psi=\psi(x, y)$ if 
 \begin{align}
     \nabla \cdot \bm{v} 
     = \frac{\partial v_x}{\partial x} + \frac{\partial v_y}{\partial y}
@@ -186,7 +186,7 @@ The given task was quite vague, so I simply plotted the field in python.
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.7]{figures/figure_3_b.pdf}
-    \caption{Plot of $\bm{v}$ for $x, y \in[-2, 2]$}
+    \caption{Plot of $\bm{v}$ for $x, y \in[-1, 1]$}
     \label{fig:figure_3_b}
 \end{figure}
 
@@ -203,25 +203,25 @@ We separate the curve into four separate pieces. Consider the paramererisation $
     = &\left[ -sin(t)\right]_{-\pi/2}^{\pi/2} \\
     = &-2
 \end{align*}
-Since the divergence of $\bm{v}$ is zero, it is a conservative field. This results in the circulation around the square defined as $-\pi/2 \leq x, y \leq \pi/2$ to be $-2*4 = -8$.
+We perform similar calculations for the three other sides. This results in the circulation around the square defined as $-\pi/2 \leq x, y \leq \pi/2$ to be $-2*4 = -8$.
 
 \subsection{}
-We have already concluded that there is a scalar potential $\psi$ since $\bm{v}$ is conservative. To check if 
+To check if 
 \begin{align}
     \psi = \cos(x)\cos(y)
     \label{eq:psi}
 \end{align}
-is a valid scalar potential for $\bm{v}$, we turn to 4.6 in Gjevik \& Fagerland (2021) once again. We have that 
+is a valid stream function for $\bm{v}$, we turn to 4.6 in Gjevik \& Fagerland (2021) once again. We have that 
 \begin{align}
     v_x = -\frac{\partial \psi}{\partial y}, 
     \hspace{.3cm} v_y = \frac{\partial \psi}{\partial x}
 \end{align}
-if $\psi(x, y)$ is a scalar potential for $\bm{v} = (v_x, v_y)$. We test for our given $\psi$ and $\bm{v}$:
+if $\psi(x, y)$ is a stream function for $\bm{v} = (v_x, v_y)$. We test for our given $\psi$ and $\bm{v}$:
 \begin{align*}
     \frac{\partial \psi}{\partial y} &= -\cos(x)\sin(y) = - v_x \\
     \frac{\partial \psi}{\partial x} &= \sin(x)\cos(y) = v_y
 \end{align*}
-which shows that \eqref{eq:psi} is a scalar potential for \eqref{eq:5}.
+which shows that \eqref{eq:psi} is a stream function for \eqref{eq:5}.
 
 \subsection{} \label{3e}
 To find the Taylor approximation of $\psi(0, 0)$ we use the formula stated in chapter 2.2 in Gjevik \& Fagerland (2021).
