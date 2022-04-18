@@ -54,17 +54,17 @@ if __name__ == '__main__':
     for x1, y1, x2, y2 in indicies:
         x1, y1, x2, y2 = x[x1,y1], y[x1,y1], x[x2,y2], y[x2,y2]
         ax.add_patch(Rectangle((x1, y1),
-                            width=x2-x1,
-                            height=y2-y1,
-                            fill=False,
-                            ec='g',
-                            lw=2.))
+                               width=x2-x1,
+                               height=y2-y1,
+                               fill=False,
+                               ec='g',
+                               lw=2.))
 
     ax.set(xlabel='x [mm]',
-        ylabel='y [mm]',
-        xlim=(0, np.max(x)),
-        ylim=(-51., 51.),
-        title='Velocity in xy-plane')
+           ylabel='y [mm]',
+           xlim=(0, np.max(x)),
+           ylim=(-51., 51.),
+           title='Velocity in xy-plane')
 
     plt.savefig('Oblig 2/figures/task_c.pdf')
     # plt.show()
@@ -83,17 +83,17 @@ if __name__ == '__main__':
     for x1, y1, x2, y2 in indicies:
         x1, y1, x2, y2 = x[x1,y1], y[x1,y1], x[x2,y2], y[x2,y2]
         ax.add_patch(Rectangle((x1, y1),
-                            width=x2-x1,
-                            height=y2-y1,
-                            fill=False,
-                            ec='k',
-                            lw=2.))
+                               width=x2-x1,
+                               height=y2-y1,
+                               fill=False,
+                               ec='k',
+                               lw=2.))
 
     ax.set(xlabel='x [mm]',
-        ylabel='y [mm]',
-        xlim=(0, np.max(x)),
-        ylim=(-50., 50.),
-        title='Divergence in $xy$-plane')
+           ylabel='y [mm]',
+           xlim=(0, np.max(x)),
+           ylim=(-50., 50.),
+           title='Divergence in $xy$-plane')
 
     plt.savefig('Oblig 2/figures/task_d.pdf')
     # plt.show()
@@ -109,25 +109,25 @@ if __name__ == '__main__':
     plt.colorbar(cs, ax=ax)
     ax.plot(xit, yit, 'r-')
     ax.streamplot(x.transpose(),
-                y.transpose(),
-                u.transpose(),
-                v.transpose(),
-                color=u.transpose())
+                  y.transpose(),
+                  u.transpose(),
+                  v.transpose(),
+                  color=u.transpose())
 
     for x1, y1, x2, y2 in indicies:
         x1, y1, x2, y2 = x[x1,y1], y[x1,y1], x[x2,y2], y[x2,y2]
         ax.add_patch(Rectangle((x1, y1),
-                            width=x2-x1,
-                            height=y2-y1,
-                            fill=False,
-                            ec='k',
-                            lw=2.))
+                               width=x2-x1,
+                               height=y2-y1,
+                               fill=False,
+                               ec='k',
+                               lw=2.))
 
     ax.set(xlabel='x [mm]',
-        ylabel='y [mm]',
-        xlim=(0, np.max(x)),
-        ylim=(-50., 50.),
-        title='Curl in $z$-direction')
+           ylabel='y [mm]',
+           xlim=(0, np.max(x)),
+           ylim=(-50., 50.),
+           title='Curl in $z$-direction')
 
     plt.savefig('Oblig 2/figures/task_e.pdf')
     plt.show()
