@@ -70,8 +70,8 @@ if __name__ == '__main__':
     # plt.show()
 
     # Calculating divergence
-    dudx = np.gradient(u, axis=0)
-    dvdy = np.gradient(v, axis=1)
+    dudx = np.gradient(u, 0.5, axis=0)
+    dvdy = np.gradient(v, 0.5, axis=1)
     div = dudx + dvdy
 
     # Plotting divergence as contourplot
@@ -99,8 +99,8 @@ if __name__ == '__main__':
     # plt.show()
 
     # Calculating curl
-    dvdx = np.gradient(v, axis=0)
-    dudy = np.gradient(u, axis=1)
+    dvdx = np.gradient(v, 0.5, axis=0)
+    dudy = np.gradient(u, 0.5, axis=1)
     curl_z = dvdx - dudy
 
     # Plotting curl in z direction and streamlines as contourplot
