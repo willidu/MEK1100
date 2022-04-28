@@ -1,0 +1,52 @@
+--------------------------------------------
+Rectangle 1
+
+Circulation, line integral:     2695.51     
+Circulation side 1:             70100.52    
+Circulation side 2:             266.27      
+Circulation side 3:             -68332.86   
+Circulation side 4:             661.57      
+
+Circulation, surface integral:  2621.56     
+Percentage error:               2.74 %      
+
+Integrated flux:                104.85      
+Flux side 1:                    1556.87     
+Flux side 2:                    21664.57    
+Flux side 3:                    -2059.68    
+Flux side 4:                    -21056.91   
+--------------------------------------------
+Rectangle 2
+
+Circulation, line integral:     -60976.60   
+Circulation side 1:             198.48      
+Circulation side 2:             300.22      
+Circulation side 3:             -61243.46   
+Circulation side 4:             -231.83     
+
+Circulation, surface integral:  -61482.54   
+Percentage error:               -0.83 %     
+
+Integrated flux:                -6476.94    
+Flux side 1:                    -5187.56
+Flux side 2:                    14782.53
+Flux side 3:                    -4074.05
+Flux side 4:                    -11997.86
+--------------------------------------------
+Rectangle 3
+
+Circulation, line integral:     9.52
+Circulation side 1:             5133.35
+Circulation side 2:             207.91
+Circulation side 3:             -5410.04
+Circulation side 4:             78.30
+
+Circulation, surface integral:  -12.21
+Percentage error:               228.29 %
+
+Integrated flux:                -124.57
+Flux side 1:                    -195.57
+Flux side 2:                    1536.82
+Flux side 3:                    284.94
+Flux side 4:                    -1750.76
+--------------------------------------------
