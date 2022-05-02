@@ -4,7 +4,7 @@ import scipy.io
 import numpy as np
 
 # Reading data
-f = scipy.io.loadmat('Oblig 2/data.mat')
+f = scipy.io.loadmat('data.mat')
 x, y, u, v, xit, yit = (f[index].transpose() for index in ['x', 'y', 'u', 'v', 'xit', 'yit'])
 
 # Checking dimension of data
@@ -18,11 +18,40 @@ assert (y[0,1]-y[0,0], x[1,0]-x[0,0]) == (0.5, 0.5), 'Wrong dx or dy'
 
 assert (y[-1,0], y[-1,-1]) == (-50.0, 50.0), 'Wrong range of y'
 
+# Indicies of rectangles
 indicies = ((34, 159, 69, 169), (34, 84, 69, 99), (34, 49, 69, 59))
 
-if __name__ == '__main__':
+def draw_rectangles(
+        indicies: tuple[tuple[int, int, int, int], ...],
+        x: np.ndarray,
+        y: np.ndarray,
+        ax: plt.Axes
+    ) -> None:
+    """
+    Draws the rectangles with lower left corner (x[x1,y1], y[x1,y1])
+    and upper right corner (x[x2,y2], y[x2,y2]).
+
+    Parameters
+    ----------
+    indicies : tuple[tuple[int, int, int, int], ...]
+        Nested n-tuple with indicies for coordinates
+    x : np.ndarray
+        x component of xy-meshgrid
+    y : np.ndarray
+        y component of xy-meshgrid
+    ax : plt.Axes
+        Axes object where the rectangle is drawn.
+    """
+    for x1, y1, x2, y2 in indicies:
+        x1, y1, x2, y2 = x[x1,y1], y[x1,y1], x[x2,y2], y[x2,y2]
+        ax.plot([x1, x2], [y1, y1], color='r')
+        ax.plot([x2, x2], [y1, y2], color='g')
+        ax.plot([x1, x2], [y2, y2], color='b')
+        ax.plot([x1, x1], [y1, y2], color='k')
+
+def main():
     # Plotting speed as contourplot
-    v_mag = np.sqrt(u**2+v**2)
+    v_mag = np.sqrt(u**2 + v**2)
 
     fig, ax = plt.subplots(2, 1, sharex=True, sharey=True)
 
@@ -41,8 +70,7 @@ if __name__ == '__main__':
     ax[1].set_title('Speed in air [mm s$^{-1}$]', fontsize=11)
     plt.colorbar(cs, ax=ax[1])
 
-    plt.savefig('Oblig 2/figures/task_b.pdf')
-    # plt.show()
+    plt.savefig('figures/task_b.png', dpi=1200)
 
     # Plotting velocity as quiverplot
     fig, ax = plt.subplots()
@@ -51,23 +79,17 @@ if __name__ == '__main__':
     ax.quiver(x[skip], y[skip], u[skip], v[skip])
     ax.plot(xit, yit, 'r-')
 
-    for x1, y1, x2, y2 in indicies:
-        x1, y1, x2, y2 = x[x1,y1], y[x1,y1], x[x2,y2], y[x2,y2]
-        ax.add_patch(Rectangle((x1, y1),
-                               width=x2-x1,
-                               height=y2-y1,
-                               fill=False,
-                               ec='g',
-                               lw=2.))
+    draw_rectangles(indicies, x, y, ax)
 
-    ax.set(xlabel='x [mm]',
-           ylabel='y [mm]',
-           xlim=(0, np.max(x)),
-           ylim=(-51., 51.),
-           title='Velocity in xy-plane')
+    ax.set(
+        xlabel='x [mm]',
+        ylabel='y [mm]',
+        xlim=(0, np.max(x)),
+        ylim=(-51., 51.),
+        title='Velocity in xy-plane'
+    )
 
-    plt.savefig('Oblig 2/figures/task_c.pdf')
-    # plt.show()
+    plt.savefig('figures/task_c.png', dpi=1200)
 
     # Calculating divergence
     dudx = np.gradient(u, 0.5, axis=0)
@@ -80,23 +102,17 @@ if __name__ == '__main__':
     plt.colorbar(cs, ax=ax)
     ax.plot(xit, yit, 'r-')
 
-    for x1, y1, x2, y2 in indicies:
-        x1, y1, x2, y2 = x[x1,y1], y[x1,y1], x[x2,y2], y[x2,y2]
-        ax.add_patch(Rectangle((x1, y1),
-                               width=x2-x1,
-                               height=y2-y1,
-                               fill=False,
-                               ec='k',
-                               lw=2.))
+    draw_rectangles(indicies, x, y, ax)
 
-    ax.set(xlabel='x [mm]',
-           ylabel='y [mm]',
-           xlim=(0, np.max(x)),
-           ylim=(-50., 50.),
-           title='Divergence in $xy$-plane')
+    ax.set(
+        xlabel='x [mm]',
+        ylabel='y [mm]',
+        xlim=(0, np.max(x)),
+        ylim=(-50., 50.),
+        title='Divergence in $xy$-plane'
+    )
 
-    plt.savefig('Oblig 2/figures/task_d.pdf')
-    # plt.show()
+    plt.savefig('figures/task_d.png', dpi=1200)
 
     # Calculating curl
     dvdx = np.gradient(v, 0.5, axis=0)
@@ -108,26 +124,26 @@ if __name__ == '__main__':
     cs = ax.contourf(x, y, curl_z)
     plt.colorbar(cs, ax=ax)
     ax.plot(xit, yit, 'r-')
-    ax.streamplot(x.transpose(),
-                  y.transpose(),
-                  u.transpose(),
-                  v.transpose(),
-                  color=u.transpose())
+    ax.streamplot(
+        x.transpose(),
+        y.transpose(),
+        u.transpose(),
+        v.transpose(),
+        color=u.transpose()
+    )
 
-    for x1, y1, x2, y2 in indicies:
-        x1, y1, x2, y2 = x[x1,y1], y[x1,y1], x[x2,y2], y[x2,y2]
-        ax.add_patch(Rectangle((x1, y1),
-                               width=x2-x1,
-                               height=y2-y1,
-                               fill=False,
-                               ec='k',
-                               lw=2.))
+    draw_rectangles(indicies, x, y, ax)
 
-    ax.set(xlabel='x [mm]',
-           ylabel='y [mm]',
-           xlim=(0, np.max(x)),
-           ylim=(-50., 50.),
-           title='Curl in $z$-direction')
+    ax.set(
+        xlabel='x [mm]',
+        ylabel='y [mm]',
+        xlim=(0, np.max(x)),
+        ylim=(-50., 50.),
+        title='Curl in $z$-direction'
+    )
 
-    plt.savefig('Oblig 2/figures/task_e.pdf')
+    plt.savefig('figures/task_e.png', dpi=1200)
+
+if __name__ == '__main__':
+    main()
     plt.show()

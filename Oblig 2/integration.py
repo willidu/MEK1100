@@ -1,17 +1,30 @@
-from plots import *
+import numpy as np
+from plots import u, v, indicies
 
-def circulation_line_integral(u, v, p):
+def circulation_line_integral(
+        u: np.ndarray,
+        v: np.ndarray,
+        p: tuple[tuple[int, int, int, int], ...]
+    ) -> tuple[list[float], float]:
     """
-    Calculates the circulation around rectangle over field F = ui + vj with positive orientation.
+    Calculates the circulation around rectangle over field F = ui + vj 
+    with positive orientation as four line integrals.
 
     Parameters
     ----------
-    u : Array-like
+    u : np.ndarray
         x component of field
-    v : Array-like
+    v : np.ndarray
         y component of field
-    p : 4-tuple
-        corners of rectangle (x1, y1, x2, y2)
+    p : tuple[tuple[int, int, int, int], ...]
+        Nested n-tuple with indicies for coordinates
+
+    Returns
+    -------
+    parts : list[float]
+        Circulation over each line
+    total_circulation : float
+        Total circulation around rectangle
     """
     x1, y1, x2, y2 = p
     dt = 0.50
@@ -24,18 +37,28 @@ def circulation_line_integral(u, v, p):
 
     return parts, np.sum(parts)
 
-def circulation_surface_integral(u, v, p):
+def circulation_surface_integral(
+        u: np.ndarray,
+        v: np.ndarray,
+        p: tuple[tuple[int, int, int, int], ...]
+    ) -> float:
     """
-    Calculates the circulation around rectangle over field F = ui + vj using curl.
+    Calculates the circulation around rectangle over field F = ui + vj 
+    with positive orientation as a single surface integral.
 
     Parameters
     ----------
-    u : Array-like
+    u : np.ndarray
         x component of field
-    v : Array-like
+    v : np.ndarray
         y component of field
-    p : 4-tuple
-        corners of rectangle (x1, y1, x2, y2)
+    p : tuple[tuple[int, int, int, int], ...]
+        Nested n-tuple with indicies for coordinates
+
+    Returns
+    -------
+    circulation : float
+        Total circulation around rectangle
     """
     x1, y1, x2, y2 = p
     dt = 0.50
@@ -43,18 +66,30 @@ def circulation_surface_integral(u, v, p):
 
     return np.sum(curl_z[x1:x2+1, y1:y2+1]*dt**2)
 
-def flux_line_integral(u, v, p):
+def flux_line_integral(
+        u: np.ndarray,
+        v: np.ndarray,
+        p: tuple[tuple[int, int, int, int], ...]
+    ) -> float:
     """
-    Calculates the integrated flux around rectangle over field F = ui + vj.
+    Calculates the integrated flux of the velocity field v = ui + vj 
+    with positive orientation as four line integrals.
 
     Parameters
     ----------
-    u : Array-like
+    u : np.ndarray
         x component of field
-    v : Array-like
+    v : np.ndarray
         y component of field
-    p : 4-tuple
-        corners of rectangle (x1, y1, x2, y2)
+    p : tuple[tuple[int, int, int, int], ...]
+        Nested n-tuple with indicies for coordinates
+
+    Returns
+    -------
+    parts : list[float]
+        Flux over each line
+    flux : float
+        Total flux around rectangle
     """
     x1, y1, x2, y2 = p
     dt = 0.50
@@ -67,26 +102,34 @@ def flux_line_integral(u, v, p):
 
     return parts, np.sum(parts)
 
+def main():
+    with open('integration_out.txt', 'w') as file:
+
+        for i, rec in enumerate(indicies, start=1):
+            sides, total = circulation_line_integral(u, v, rec)
+            surf = circulation_surface_integral(u, v, rec)
+            sides_flux, flux = flux_line_integral(u, v, rec)
+            
+            file.write(f'--------------------------------------------\n')
+            file.write(f'Rectangle {i}\n')
+
+            file.write('\n')
+            file.write(f'Circulation, line integral:     {total:.2f}\n')
+
+            for j, side in enumerate(sides, start=1):
+                file.write(f'Circulation side {j}:             {side:.2f}\n')
+
+            file.write('\n')
+            file.write(f'Circulation, surface integral:  {surf:.2f}\n')
+            file.write(f'Percentage error:               {(total-surf)/(total)*100:.2f} %\n')
+
+            file.write('\n')
+            file.write(f'Integrated flux:                {flux:.2f}\n')
+
+            for k, side in enumerate(sides_flux, start=1):
+                file.write(f'Flux side {k}:                    {side:.2f}\n')
+
+        file.write(f'--------------------------------------------')
+
 if __name__ == '__main__':
-
-    print(f'--------------------------------------------')
-
-    for i, rec in enumerate(indicies, start=1):
-        sides, total = circulation_line_integral(u, v, rec)
-        surf = circulation_surface_integral(u, v, rec)
-        sides_flux, flux = flux_line_integral(u, v, rec)
-        
-        print(f'Rectangle {i}\n')
-        print(f'Circulation, line integral:     {total:.2f}')
-
-        for j, side in enumerate(sides, start=1):
-            print(f'Circulation side {j}:             {side:.2f}')
-
-        print(f'\nCirculation, surface integral:  {surf:.2f}')
-        print(f'Percentage error:               {(total-surf)/(total)*100:.2f} %\n')
-        print(f'Integrated flux:                {flux:.2f}')
-
-        for k, side in enumerate(sides_flux, start=1):
-            print(f'Flux side {k}:                    {side:.2f}')
-
-        print(f'--------------------------------------------')
+    main()
