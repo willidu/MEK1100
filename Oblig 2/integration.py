@@ -4,7 +4,7 @@ from plots import u, v, indicies
 def circulation_line_integral(
         u: np.ndarray,
         v: np.ndarray,
-        p: tuple[tuple[int, int, int, int], ...]
+        p: tuple[tuple[int, int, int, int]]
     ) -> tuple[list[float], float]:
     """
     Calculates the circulation around rectangle over field F = ui + vj 
@@ -16,7 +16,7 @@ def circulation_line_integral(
         x component of field
     v : np.ndarray
         y component of field
-    p : tuple[tuple[int, int, int, int], ...]
+    p : tuple[tuple[int, int, int, int]]
         Nested n-tuple with indicies for coordinates
 
     Returns
@@ -40,7 +40,7 @@ def circulation_line_integral(
 def circulation_surface_integral(
         u: np.ndarray,
         v: np.ndarray,
-        p: tuple[tuple[int, int, int, int], ...]
+        p: tuple[tuple[int, int, int, int]]
     ) -> float:
     """
     Calculates the circulation around rectangle over field F = ui + vj 
@@ -52,7 +52,7 @@ def circulation_surface_integral(
         x component of field
     v : np.ndarray
         y component of field
-    p : tuple[tuple[int, int, int, int], ...]
+    p : tuple[tuple[int, int, int, int]]
         Nested n-tuple with indicies for coordinates
 
     Returns
@@ -69,7 +69,7 @@ def circulation_surface_integral(
 def flux_line_integral(
         u: np.ndarray,
         v: np.ndarray,
-        p: tuple[tuple[int, int, int, int], ...]
+        p: tuple[tuple[int, int, int, int]]
     ) -> float:
     """
     Calculates the integrated flux of the velocity field v = ui + vj 
@@ -81,15 +81,15 @@ def flux_line_integral(
         x component of field
     v : np.ndarray
         y component of field
-    p : tuple[tuple[int, int, int, int], ...]
+    p : tuple[tuple[int, int, int, int]]
         Nested n-tuple with indicies for coordinates
 
     Returns
     -------
     parts : list[float]
-        Flux over each line
+        Flux through each line
     flux : float
-        Total flux around rectangle
+        Total flux through rectangle
     """
     x1, y1, x2, y2 = p
     dt = 0.50

@@ -67,14 +67,6 @@ The full python code can be found at the end of the document.
 \end{figure}
 
 \newpage
-Let $\bm{v} = u\bm{i} + v\bm{j} + w\bm{k}$ and $\bm{v}^* = u\bm{i} + v\bm{j}$. The divergence is
-\begin{align*}
-    \mathbf{\nabla} \cdot \bm{v}^*
-    = \frac{\partial u}{\partial x} + \frac{\partial v}{\partial y}
-    \neq \mathbf{\nabla} \cdot \bm{v}
-    = \frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} + \frac{\partial w}{\partial z}
-\end{align*}
-
 \begin{figure}[h!]
     \centering
     \includegraphics[scale=0.65]{../figures/task_d.png}
@@ -82,45 +74,47 @@ Let $\bm{v} = u\bm{i} + v\bm{j} + w\bm{k}$ and $\bm{v}^* = u\bm{i} + v\bm{j}$. T
     \label{fig:contour_d}
 \end{figure}
 
-Since both the gas and the liquid are modeled as incompressible fluids, the divergence should be zero. This means that 
+Let $\bm{v} = u\bm{i} + v\bm{j} + w\bm{k}$ and $\bm{v}^* = u\bm{i} + v\bm{j}$. The divergence is
 \begin{align*}
+    \mathbf{\nabla} \cdot \bm{v}^*
+    &= \frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} \\
     \mathbf{\nabla} \cdot \bm{v}
     &= \frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} + \frac{\partial w}{\partial z}
-    = 0 \\
+    = \mathbf{\nabla} \cdot \bm{v}^* + \frac{\partial w}{\partial z}
+\end{align*}
+
+Since both the gas and the liquid are modeled as incompressible fluids, the divergence should be zero. This means that 
+\begin{align*}
+    \mathbf{\nabla} \cdot \bm{v}^* + \frac{\partial w}{\partial z} = 0 &
     \implies \frac{\partial w}{\partial z}
-    &= - \left(
-            \frac{\partial u}{\partial x} + \frac{\partial v}{\partial y}
-    \right) \\
-    \implies w 
-    &= - \int \left(
-        \frac{\partial u}{\partial x} + \frac{\partial v}{\partial y}
-    \right) dz.
+    = - \mathbf{\nabla} \cdot \bm{v}^*
 \end{align*}
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.65]{../figures/task_e.png}
+    \includegraphics[scale=0.65]{../figures/task_e_curl.png}
     \caption{Contour plot of $(\nabla \times \bm{v}^*) \cdot \bm{k}$. Red line indicating border between gas and liquid.}
-    \label{fig:contour_e}
+    \label{fig:contour_curl}
 \end{figure}
 
-BLABLA forklaring oppg E
-- Beskriv strømningen for både gassfasen og væskefasen. Legg spesielt merke til strømningen ved veggen.
+From figure \ref{fig:streamlines} we observe that the streamlines mostly follows the expected flow of an irrotational field. There are some deviations at the air-water border, but the curl is still around zero in this area (seen in figure \ref{fig:contour_curl}). At the borders we observe that the flow is not straight. This is due to the friction force between the fuilds and the walls. 
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=0.65]{../figures/task_e_streamlines.png}
+    \caption{streamlines for $\bm{v}^*$. Red line indicating border between gas and liquid.}
+    \label{fig:streamlines}
+\end{figure}
 
 \newpage
 The code in $\verb|integration.py|$ yields the following result:
 \lstinputlisting[numbers=none]{../integration_out.txt}
 
-\newpage
-BLABLA forklaring oppg F
-- Diskuter forskjellen mellom de tre rektanglene.
-- For å få en bedre forståelse av sirkulasjonen angir du verdien til kurveintegralene langs hver side av rektanglene. Passer disse resultatene med hva du hadde forventet når du ser på hastighetsfeltet i området?
+For the rectangles in the part of the field located in the air, the difference between the line integral and the surface integral is negligible. For all three rectangles, the circulation is a lot larger in x direction, as expected. The values for the circulation around each side of the rectangles are as expected, with larger values where the velocity is higher. For the rectangle located in the water (rectangle 3), the difference between the line integral and the surface integral is very large, yet both values are a lot smaller than rectangle 1 and 2, since the velocity is a lot lower in the water. The error is likely due to our limited resolution ($\Delta x = \Delta y = 0.5$mm).
 
+Since $(\bm{\nabla}\times\bm{v}^*)\cdot\bm{k} \neq 0$, the surface integral $\iint_{\sigma} (\bm{\nabla}\times\bm{v}^*)\cdot\bm{k} d\sigma \neq 0$. This means that the integrated flux in z direction for $\bm{v}$ would be $-\iint_{\sigma} (\bm{\nabla}\times\bm{v}^*)\cdot\bm{k} d\sigma$ to ensure that $\iint_{\sigma} (\bm{\nabla}\times\bm{v})\cdot\bm{n} d\sigma = 0$.
 
-BLABLA forklaring oppg G
-- Diskuter hvilken implikasjon disse svarene har for den integrerte fluksen over rektanglene orientert i z-retning
-- For å få en bedre forståelse av fluksen skal du angi verdien til kurveintegralene langs hver side av rektanglene. Passer disse resultatene med hva du hadde forventet når du ser på hastighetsfeltet i området
-
+For rectangle 1, the integrated flux is very roughly zero as the net flow through the rectangle is approximately the same on all four sides. For rectangle 2, we observe that there is a lot of flow in through side 4 (marked in black in figure \ref{fig:quiver_c}). This is as expected. For rectangle 3, there is mostly flow in through the top, and out through the bottom.
 
 \newpage
 File: $\verb|plots.py|$

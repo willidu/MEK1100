@@ -1,4 +1,3 @@
-from matplotlib.patches import Rectangle
 import matplotlib.pyplot as plt
 import scipy.io
 import numpy as np
@@ -9,7 +8,9 @@ x, y, u, v, xit, yit = (f[index].transpose() for index in ['x', 'y', 'u', 'v', '
 
 # Checking dimension of data
 for arr in (x, y, u, v):
-    assert arr.shape == (194, 201), 'Wrong dimension'
+    shape = arr.shape
+    assert shape == (194, 201), 'Wrong dimension'
+    assert shape[0]*shape[1] == 38994, 'Wrong numper of points in xy plane'
 
 for arr in (xit, yit):
     assert arr.shape == (194, 1), 'Wrong dimension'
@@ -22,7 +23,7 @@ assert (y[-1,0], y[-1,-1]) == (-50.0, 50.0), 'Wrong range of y'
 indicies = ((34, 159, 69, 169), (34, 84, 69, 99), (34, 49, 69, 59))
 
 def draw_rectangles(
-        indicies: tuple[tuple[int, int, int, int], ...],
+        indicies: tuple[tuple[int, int, int, int]],
         x: np.ndarray,
         y: np.ndarray,
         ax: plt.Axes
@@ -33,7 +34,7 @@ def draw_rectangles(
 
     Parameters
     ----------
-    indicies : tuple[tuple[int, int, int, int], ...]
+    indicies : tuple[tuple[int, int, int, int]]
         Nested n-tuple with indicies for coordinates
     x : np.ndarray
         x component of xy-meshgrid
@@ -119,18 +120,12 @@ def main():
     dudy = np.gradient(u, 0.5, axis=1)
     curl_z = dvdx - dudy
 
-    # Plotting curl in z direction and streamlines as contourplot
+    # Plotting curl in z direction
     fig, ax = plt.subplots()
+
     cs = ax.contourf(x, y, curl_z)
     plt.colorbar(cs, ax=ax)
     ax.plot(xit, yit, 'r-')
-    ax.streamplot(
-        x.transpose(),
-        y.transpose(),
-        u.transpose(),
-        v.transpose(),
-        color=u.transpose()
-    )
 
     draw_rectangles(indicies, x, y, ax)
 
@@ -141,8 +136,29 @@ def main():
         ylim=(-50., 50.),
         title='Curl in $z$-direction'
     )
+    
+    plt.savefig('figures/task_e_curl.png', dpi=1200)
 
-    plt.savefig('figures/task_e.png', dpi=1200)
+    # Plotting streamlines
+    fig, ax = plt.subplots()
+
+    ax.plot(xit, yit, 'r-')
+    ax.streamplot(
+        x.transpose(),
+        y.transpose(),
+        u.transpose(),
+        v.transpose(),
+    )
+
+    ax.set(
+        xlabel='x [mm]',
+        ylabel='y [mm]',
+        xlim=(0, np.max(x)),
+        ylim=(-50., 50.),
+        title='Streamlines'
+    )
+
+    plt.savefig('figures/task_e_streamlines.png', dpi=1200)
 
 if __name__ == '__main__':
     main()
