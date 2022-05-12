@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1652270774 "c:/Users/Administrator/Git/MEK1100/Oblig 2/tex/besvarelse.tex" "besvarelse.pdf" "besvarelse" 1652270800
+["pdflatex"] 1652346374 "c:/Users/Administrator/Git/MEK1100/Oblig 2/tex/besvarelse.tex" "besvarelse.pdf" "besvarelse" 1652346410
   "../figures/task_b.png" 1652262070 1595390 ea3d9a2522ce1a81915285370df075a7 ""
   "../figures/task_c.png" 1652262072 834724 1ceaf31eabc8cad22c10fdcc33d779a5 ""
   "../figures/task_d.png" 1652262075 821627 b3864432eacb763e522c7b6d36bf8b05 ""
@@ -135,10 +135,10 @@
   "C:/Users/Administrator/AppData/Roaming/MiKTeX/2.9/tex/latex/url/url.sty" 1388494052 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "C:/Users/Administrator/AppData/Roaming/MiKTeX/2.9/tex/latex/xcolor/svgnam.def" 1636288472 4701 9c94a851a756fcbe00f338a0e7fd92c9 ""
   "C:/Users/Administrator/AppData/Roaming/MiKTeX/2.9/tex/latex/xcolor/xcolor.sty" 1636288472 56029 3f7889dab51d620aa43177c391b7b190 ""
-  "besvarelse.aux" 1652270799 2823 da74871a8a4a84cb35889234740c7648 "pdflatex"
+  "besvarelse.aux" 1652346409 2823 da74871a8a4a84cb35889234740c7648 "pdflatex"
   "besvarelse.out" 0 -1 0 "pdflatex"
-  "besvarelse.tex" 1652270396 5504 8d5b1cd9156f980f6d20ea0f303c4ba2 ""
-  "c:/Users/Administrator/Git/MEK1100/Oblig 2/tex/besvarelse.tex" 1652270396 5504 8d5b1cd9156f980f6d20ea0f303c4ba2 ""
+  "besvarelse.tex" 1652346373 5660 d300cf9d07919ff6dec939b6583f6e46 ""
+  "c:/Users/Administrator/Git/MEK1100/Oblig 2/tex/besvarelse.tex" 1652346373 5660 d300cf9d07919ff6dec939b6583f6e46 ""
   (generated)
   "besvarelse.aux"
   "besvarelse.log"

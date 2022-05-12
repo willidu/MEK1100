@@ -112,9 +112,15 @@ The code in $\verb|integration.py|$ yields the following result:
 
 For the rectangles in the part of the field located in the air, the difference between the line integral and the surface integral is negligible. For all three rectangles, the circulation is a lot larger in x direction, as expected. The values for the circulation around each side of the rectangles are as expected, with larger values where the velocity is higher. For the rectangle located in the water (rectangle 3), the difference between the line integral and the surface integral is very large, yet both values are a lot smaller than rectangle 1 and 2, since the velocity is a lot lower in the water. The error is likely due to our limited resolution ($\Delta x = \Delta y = 0.5$mm).
 
-Since $(\bm{\nabla}\times\bm{v}^*)\cdot\bm{k} \neq 0$, the surface integral $\iint_{\sigma} (\bm{\nabla}\times\bm{v}^*)\cdot\bm{k} d\sigma \neq 0$. This means that the integrated flux in z direction for $\bm{v}$ would be $-\iint_{\sigma} (\bm{\nabla}\times\bm{v}^*)\cdot\bm{k} d\sigma$ to ensure that $\iint_{\sigma} (\bm{\nabla}\times\bm{v})\cdot\bm{n} d\sigma = 0$.
+The divergence theorem states
+\begin{align*}
+    \oint_C \bm{F} \cdot d\bm{s}
+    = \int_V \bm{\nabla} \cdot \bm{F} dV
+\end{align*}
 
-For rectangle 1, the integrated flux is very roughly zero as the net flow through the rectangle is approximately the same on all four sides. For rectangle 2, we observe that there is a lot of flow in through side 4 (marked in black in figure \ref{fig:quiver_c}). This is as expected. For rectangle 3, there is mostly flow in through the top, and out through the bottom.
+Remembering that the fluid is incompressible, yet having $\bm{\nabla} \cdot \bm{v}^* \neq 0$ results in the surface integral $\int_{\sigma} \bm{\nabla} \cdot \bm{v}^* d\sigma \neq 0$. This means that the integrated flux in z direction for $\bm{v}$ would be $-\int_{\sigma} \bm{\nabla} \cdot \bm{v}^* d\sigma$ to ensure that $\int_{\sigma} \bm{\nabla}\cdot \bm{v} d\sigma = 0$.
+
+For all three rectangles we observe that the integrated flux is a large positive value for side number two and a large negative value for side number four. This is reasonable as there is a lot of flow in through the left side and out through the right. Rectangle 2 has a large negative integrated flux due to its placement close to the separation surface between water and air.
 
 \newpage
 File: $\verb|plots.py|$
