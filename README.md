@@ -1,2 +1,2 @@
 # MEK1100
- Feltteori og vektoranalyse Vår 22
+This repo includes solutions to the mandatory assignments in Vector Calculus at UiO, spring 2022.
